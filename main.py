@@ -22,6 +22,12 @@ target_y = random.randint(0, SCREEN_HEIGHT - target_height)
 target_speed_x = 0.1  # Скорость по оси X
 target_speed_y = 0.1  # Скорость по оси Y
 
+# Переменная для подсчета очков
+score = 0
+
+# Шрифт для отображения текста
+font = pygame.font.Font(None, 36)
+
 target_x = random.randint(0, SCREEN_WIDTH - target_width)
 target_y = random.randint(0, SCREEN_HEIGHT - target_height)
 
@@ -36,6 +42,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
            mouse_x, mouse_y = pygame.mouse.get_pos()
            if target_x < mouse_x < target_x + target_width and target_y < mouse_y < target_y + target_height:
+              score += 1  # Увеличиваем счет на 1
               target_x = random.randint(0, SCREEN_WIDTH - target_width)
               target_y = random.randint(0, SCREEN_HEIGHT - target_height)
     # Движение мишени
@@ -49,6 +56,11 @@ while running:
        target_speed_y = -target_speed_y  # Изменение направления по оси Y
 
     screen.blit(target_img, (target_x, target_y))
+
+    # Отображение счета
+    score_text = font.render(f"Очки: {score}", True, (255, 255, 255))  # Белый цвет текста
+    screen.blit(score_text, (10, 10))  # Позиция текста на экране
+
     pygame.display.update()
 
 pygame.quit()
