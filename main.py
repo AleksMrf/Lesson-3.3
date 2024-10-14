@@ -14,6 +14,14 @@ target_img = pygame.image.load("img/target.png")
 target_width = 80
 target_height = 80
 
+# Начальные координаты мишени
+target_x = random.randint(0, SCREEN_WIDTH - target_width)
+target_y = random.randint(0, SCREEN_HEIGHT - target_height)
+
+# Скорость движения мишени
+target_speed_x = 0.1  # Скорость по оси X
+target_speed_y = 0.1  # Скорость по оси Y
+
 target_x = random.randint(0, SCREEN_WIDTH - target_width)
 target_y = random.randint(0, SCREEN_HEIGHT - target_height)
 
@@ -30,6 +38,15 @@ while running:
            if target_x < mouse_x < target_x + target_width and target_y < mouse_y < target_y + target_height:
               target_x = random.randint(0, SCREEN_WIDTH - target_width)
               target_y = random.randint(0, SCREEN_HEIGHT - target_height)
+    # Движение мишени
+    target_x += target_speed_x
+    target_y += target_speed_y
+
+    # Проверка границ экрана
+    if target_x <= 0 or target_x >= SCREEN_WIDTH - target_width:
+       target_speed_x = -target_speed_x  # Изменение направления по оси X
+    if target_y <= 0 or target_y >= SCREEN_HEIGHT - target_height:
+       target_speed_y = -target_speed_y  # Изменение направления по оси Y
 
     screen.blit(target_img, (target_x, target_y))
     pygame.display.update()
